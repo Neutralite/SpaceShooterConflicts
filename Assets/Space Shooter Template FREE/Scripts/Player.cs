@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using UnityEngine;
 
 /// <summary>
@@ -8,21 +8,25 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public GameObject mainDestructionFX;
-    public GameObject secondaryDestructionFX;
+    [SerializeField] private GameObject secondaryDestructionFX;
     public GameObject tertiaryDestructionFX;
+    [SerializeField] private int health = 3;
 
     public static Player instance;
     public float destructionFXRange = .4f;
 
     private void Awake()
     {
-        if (instance == null)
+        if (instance == null) 
             instance = this;
     }
 
     //method for damage proceccing by 'Player'
-    public void GetDamage(int damage)
+    public void GetDamage(int damage)   
     {
+        health -= damage;
+
+        if (health <= 0)
         StartCoroutine(Destruction());
     }
 
